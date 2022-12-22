@@ -1,5 +1,5 @@
 // router
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 // pages
 import {
@@ -15,6 +15,7 @@ import {
 export const Routers = () => {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to={"/home"} />} />
       <Route path="home" element={<Home />} />
       <Route path="shop" element={<Shop />} />
       <Route path="shop/:id" element={<ProductDetails />} />
