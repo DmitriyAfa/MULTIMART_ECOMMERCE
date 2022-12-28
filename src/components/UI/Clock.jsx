@@ -10,7 +10,7 @@ export const Clock = () => {
   const [seconds, setSeconds] = useState();
 
   useEffect(() => {
-    const destination = new Date("05, 01, 2023").getTime();
+    const destination = new Date("01, 05, 2023").getTime();
 
     const setTimes = () => {
       const now = new Date().getTime();
