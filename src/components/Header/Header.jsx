@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 // styles
 import "./header.css";
 
@@ -23,8 +24,30 @@ const nav__links = [
 ];
 
 export const Header = () => {
+  const headerRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const setStickyHeader = () => {
+    if (
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
+    ) {
+      headerRef.current.classList.add("sticky__header");
+    } else {
+      headerRef.current.classList.remove("sticky__header");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", setStickyHeader);
+
+    return () => window.removeEventListener("scroll", setStickyHeader);
+  }, []);
+
+  const menuToggle = () => menuRef.current.classList.toggle("active__menu");
+
   return (
-    <header>
+    <header ref={headerRef}>
       <Container>
         <Row>
           <div className="nav__wrapper">
@@ -32,11 +55,11 @@ export const Header = () => {
               <img src={logo} alt="logo" />
               <div>
                 <h1>Multimart</h1>
-                <p>Since 1995</p>
+                {/* <p>Since 1995</p> */}
               </div>
             </div>
 
-            <div className="navigation">
+            <div className="navigation" ref={menuRef} onClick={menuToggle}>
               <ul className="menu">
                 {nav__links.map((l, i) => {
                   const { path, display } = l;
@@ -66,15 +89,14 @@ export const Header = () => {
                 <i className="ri-shopping-bag-line"></i>
                 <span className="badge">2</span>
               </span>
-              <span className="">
+              <span>
                 <motion.img whileTap={{ scale: 1.2 }} src={userIcon} alt="" />
               </span>
-            </div>
-
-            <div className="mobile__menu">
-              <span className="">
-                <i className="ri-menu-line"></i>
-              </span>
+              <div className="mobile__menu">
+                <span onClick={menuToggle}>
+                  <i className="ri-menu-line"></i>
+                </span>
+              </div>
             </div>
           </div>
         </Row>

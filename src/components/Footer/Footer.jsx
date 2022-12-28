@@ -18,7 +18,7 @@ export const Footer = () => {
     <footer className="footer">
       <Container>
         <Row>
-          <Col lg="4">
+          <Col lg="4" className="mb-4" md="6">
             <div className="logo">
               <img src={logo} alt="logo" />
               <div>
@@ -32,7 +32,7 @@ export const Footer = () => {
               numquam id veritatis optio?
             </p>
           </Col>
-          <Col lg="3">
+          <Col lg="3" md="3" className="mb-4">
             <div className="footer__quick-links">
               <h4 className="footer__quick-title">Top Category</h4>
               <ListGroup>
@@ -51,7 +51,7 @@ export const Footer = () => {
               </ListGroup>
             </div>
           </Col>
-          <Col lg="2">
+          <Col lg="2" md="3" className="mb-4">
             <div className="footer__quick-links">
               <h4 className="footer__quick-title">Useful Links</h4>
               <ListGroup>
@@ -70,7 +70,7 @@ export const Footer = () => {
               </ListGroup>
             </div>
           </Col>
-          <Col lg="3">
+          <Col lg="3" md="4">
             <div className="footer__quick-links">
               <h4 className="footer__quick-title">Contact</h4>
               <ListGroup className="footer__contact">
