@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import "./header.css";
 
 // Router
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // redux
 import { useSelector } from "react-redux";
@@ -30,6 +30,8 @@ export const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const { totalQuantity } = useSelector((state) => state.cart);
 
   const setStickyHeader = () => {
@@ -51,6 +53,9 @@ export const Header = () => {
 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
+  const navigateToCart = () => {
+    navigate("/cart");
+  };
   return (
     <header ref={headerRef}>
       <Container>
@@ -90,7 +95,7 @@ export const Header = () => {
                 <i className="ri-heart-line"></i>
                 <span className="badge">2</span>
               </span>
-              <span className="cart__icon">
+              <span className="cart__icon" onClick={navigateToCart}>
                 <i className="ri-shopping-bag-line"></i>
                 <span className="badge">{totalQuantity}</span>
               </span>

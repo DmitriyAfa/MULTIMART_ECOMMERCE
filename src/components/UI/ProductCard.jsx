@@ -28,7 +28,7 @@ export const ProductCard = ({ item }) => {
       addCartItem({
         id: id,
         productName: productName,
-        iamge: imgUrl,
+        imgUrl: imgUrl,
         price: price,
         quantity: 1,
         totalPrice: price,
