@@ -5,6 +5,9 @@ import "./header.css";
 // Router
 import { NavLink } from "react-router-dom";
 
+// redux
+import { useSelector } from "react-redux";
+
 // reactstrap
 import { Container, Row } from "reactstrap";
 
@@ -26,6 +29,8 @@ const nav__links = [
 export const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
+
+  const { totalQuantity } = useSelector((state) => state.cart);
 
   const setStickyHeader = () => {
     if (
@@ -87,7 +92,7 @@ export const Header = () => {
               </span>
               <span className="cart__icon">
                 <i className="ri-shopping-bag-line"></i>
-                <span className="badge">2</span>
+                <span className="badge">{totalQuantity}</span>
               </span>
               <span>
                 <motion.img whileTap={{ scale: 1.2 }} src={userIcon} alt="" />

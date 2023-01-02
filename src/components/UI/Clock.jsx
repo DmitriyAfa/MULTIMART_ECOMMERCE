@@ -24,10 +24,8 @@ export const Clock = () => {
       const seconds = Math.floor((different % (1000 * 60)) / 1000);
 
       if (destination < 0) {
-        console.log("if");
         clearInterval(interval.current);
       } else {
-        console.log("else");
         setDays(days);
         setHours(hours);
         setMinutes(minutes);

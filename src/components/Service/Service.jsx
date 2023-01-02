@@ -20,14 +20,14 @@ export const Service = () => {
           {serviceData.map((item, index) => {
             const { title, subtitle, icon, bg } = item;
             return (
-              <Col lg="3" md="4" key={subtitle}>
+              <Col lg="3" md="4" key={title}>
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   className="service__item"
                   style={{ background: `${bg}` }}
                 >
                   <span>
-                    <i class={icon}></i>
+                    <i className={icon}></i>
                   </span>
                   <div>
                     <h3>{title}</h3>
