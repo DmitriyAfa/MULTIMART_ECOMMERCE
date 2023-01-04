@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import "./header.css";
 
 // Router
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 // redux
 import { useSelector } from "react-redux";
@@ -11,12 +11,20 @@ import { useSelector } from "react-redux";
 // reactstrap
 import { Container, Row } from "reactstrap";
 
+// hooks
+import { useAuth } from "../../services/hooks/useAuth";
+
+// firebase
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase.config";
+
 // assets
 import logo from "../../assets/images/eco-logo.png";
 import userIcon from "../../assets/images/user-icon.png";
 
 // animation
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 // consts
 
@@ -29,9 +37,10 @@ const nav__links = [
 export const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
+  const profileActionRef = useRef(null);
 
   const navigate = useNavigate();
-
+  const { currentUser } = useAuth();
   const { totalQuantity } = useSelector((state) => state.cart);
 
   const setStickyHeader = () => {
@@ -45,6 +54,17 @@ export const Header = () => {
     }
   };
 
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Logged out");
+        navigate("/home");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", setStickyHeader);
 
@@ -56,6 +76,9 @@ export const Header = () => {
   const navigateToCart = () => {
     navigate("/cart");
   };
+
+  const toggleProfileActions = () =>
+    profileActionRef.current.classList.toggle("profile__actions_show");
   return (
     <header ref={headerRef}>
       <Container>
@@ -65,7 +88,6 @@ export const Header = () => {
               <img src={logo} alt="logo" />
               <div>
                 <h1>Multimart</h1>
-                {/* <p>Since 1995</p> */}
               </div>
             </div>
 
@@ -99,9 +121,31 @@ export const Header = () => {
                 <i className="ri-shopping-bag-line"></i>
                 <span className="badge">{totalQuantity}</span>
               </span>
-              <span>
-                <motion.img whileTap={{ scale: 1.2 }} src={userIcon} alt="" />
-              </span>
+
+              <div className="profile">
+                <motion.img
+                  whileTap={{ scale: 1.2 }}
+                  src={currentUser ? currentUser.photoURL : userIcon}
+                  alt=""
+                  onClick={toggleProfileActions}
+                />
+
+                <div
+                  className="profile__actions"
+                  ref={profileActionRef}
+                  onClick={toggleProfileActions}
+                >
+                  {currentUser ? (
+                    <span onClick={logout}>Logout</span>
+                  ) : (
+                    <div className="d-flex align-items-center justify-content-center flex-column">
+                      <Link to="/signup">Signup</Link>
+                      <Link to="/login">Login</Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div className="mobile__menu">
                 <span onClick={menuToggle}>
                   <i className="ri-menu-line"></i>
