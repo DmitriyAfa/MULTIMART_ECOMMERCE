@@ -1,9 +1,18 @@
 import React from "react";
 
+// styles
+import "../styles/dashboard.css";
+
 // reactstrap
 import { Container, Row, Col } from "reactstrap";
 
+// hooks
+import { useGetData } from "../services/hooks/useGetData";
+
 export const Dashboard = () => {
+  const { data: products } = useGetData("products");
+  const { data: users } = useGetData("users");
+
   return (
     <section>
       <Container>
@@ -21,15 +30,15 @@ export const Dashboard = () => {
             </div>
           </Col>
           <Col className="lg-3">
-            <div className="porducts__box">
+            <div className="products__box">
               <h5>Total Products</h5>
-              <span>778</span>
+              <span>{products.length}</span>
             </div>
           </Col>
           <Col className="lg-3">
             <div className="users__box">
               <h5>Total Users</h5>
-              <span>78</span>
+              <span>{users.length}</span>
             </div>
           </Col>
         </Row>
