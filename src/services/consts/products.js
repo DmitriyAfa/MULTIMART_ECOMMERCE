@@ -50,7 +50,7 @@ export const products = [
 
   {
     id: "02",
-    productName: "Rivet Bigelow Modern ",
+    productName: "Rivet Bigelow Modern",
     imgUrl: productImg02,
     category: "sofa",
     price: 253,
