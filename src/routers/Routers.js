@@ -14,7 +14,7 @@ import {
 } from "../pages/index";
 
 // admin
-import { AddProduct, AllProducts, Dashboard } from "../admin/index";
+import { AddProduct, AllProducts, Dashboard, Users } from "../admin/index";
 
 export const Routers = () => {
   return (
@@ -30,6 +30,7 @@ export const Routers = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="dashboard/all-products" element={<AllProducts />} />
         <Route path="dashboard/add-product" element={<AddProduct />} />
+        <Route path="dashboard/users" element={<Users />} />
       </Route>
 
       <Route path="login" element={<Login />} />
