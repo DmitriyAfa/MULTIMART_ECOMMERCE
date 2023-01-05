@@ -13,6 +13,9 @@ import {
   Signup,
 } from "../pages/index";
 
+// admin
+import { AddProduct, AllProducts, Dashboard } from "../admin/index";
+
 export const Routers = () => {
   return (
     <Routes>
@@ -21,14 +24,14 @@ export const Routers = () => {
       <Route path="shop" element={<Shop />} />
       <Route path="shop/:id" element={<ProductDetails />} />
       <Route path="cart" element={<Cart />} />
-      <Route
-        path="checkout"
-        element={
-          <ProtectedRouter>
-            <Checkout />
-          </ProtectedRouter>
-        }
-      />
+
+      <Route path="/*" element={<ProtectedRouter />}>
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard/all-products" element={<AllProducts />} />
+        <Route path="dashboard/add-product" element={<AddProduct />} />
+      </Route>
+
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
     </Routes>
