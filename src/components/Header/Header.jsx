@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 // styles
 import "./header.css";
@@ -35,7 +35,7 @@ const nav__links = [
   { path: "cart", display: "Cart" },
 ];
 
-export const Header = () => {
+export const Header = React.memo(() => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   const profileActionRef = useRef(null);
@@ -159,4 +159,4 @@ export const Header = () => {
       </Container>
     </header>
   );
-};
+});

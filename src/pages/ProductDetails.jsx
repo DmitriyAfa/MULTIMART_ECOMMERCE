@@ -29,7 +29,7 @@ import { doc, getDoc } from "firebase/firestore";
 // hooks
 import { useGetData } from "../services/hooks/useGetData";
 
-export const ProductDetails = () => {
+export const ProductDetails = React.memo(() => {
   const [product, setProduct] = React.useState({});
   const [tab, setTab] = React.useState("desc");
   const reviewUser = React.useRef("");
@@ -259,4 +259,4 @@ export const ProductDetails = () => {
       </section>
     </Helmet>
   );
-};
+});

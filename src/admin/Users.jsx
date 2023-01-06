@@ -13,7 +13,7 @@ import { db } from "../firebase.config";
 // animation
 import { toast } from "react-toastify";
 
-export const Users = () => {
+export const Users = React.memo(() => {
   const { data: usersData, loading } = useGetData("users");
 
   const deleteUser = async (id) => {
@@ -66,4 +66,4 @@ export const Users = () => {
       </Row>
     </Container>
   );
-};
+});

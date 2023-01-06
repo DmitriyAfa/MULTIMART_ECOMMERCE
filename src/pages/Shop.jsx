@@ -14,7 +14,7 @@ import { Container, Row, Col } from "reactstrap";
 //consts
 import { products } from "../services/consts/products";
 
-export const Shop = () => {
+export const Shop = React.memo(() => {
   const [productsData, setProductsData] = React.useState(products);
 
   const handleFilter = (e) => {
@@ -115,4 +115,4 @@ export const Shop = () => {
       </section>
     </Helmet>
   );
-};
+});

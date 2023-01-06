@@ -6,7 +6,7 @@ import "../../styles/common-section.css";
 // reactstrap
 import { Container } from "reactstrap";
 
-export const CommonSection = ({ title }) => {
+export const CommonSection = React.memo(({ title }) => {
   return (
     <section className="common__section">
       <Container className="text-center">
@@ -14,4 +14,4 @@ export const CommonSection = ({ title }) => {
       </Container>
     </section>
   );
-};
+});

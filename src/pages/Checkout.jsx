@@ -13,7 +13,7 @@ import { CommonSection } from "../components/UI/CommonSection";
 // redux
 import { useSelector } from "react-redux";
 
-export const Checkout = () => {
+export const Checkout = React.memo(() => {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
   return (
     <Helmet title={"Checkout"}>
@@ -73,4 +73,4 @@ export const Checkout = () => {
       </section>
     </Helmet>
   );
-};
+});

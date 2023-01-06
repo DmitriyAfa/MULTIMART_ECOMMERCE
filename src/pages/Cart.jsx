@@ -20,7 +20,7 @@ import { Container, Row, Col } from "reactstrap";
 // router
 import { Link } from "react-router-dom";
 
-export const Cart = () => {
+export const Cart = React.memo(() => {
   const { cartItems } = useSelector((state) => state.cart);
   const { totalAmount } = useSelector((state) => state.cart);
 
@@ -76,9 +76,9 @@ export const Cart = () => {
       </section>
     </Helmet>
   );
-};
+});
 
-const Tr = ({ item }) => {
+const Tr = React.memo(({ item }) => {
   const { imgUrl, productName, price, quantity, id } = item;
   const dispatch = useDispatch();
   const deleteProduct = () => {
@@ -101,4 +101,4 @@ const Tr = ({ item }) => {
       </td>
     </tr>
   );
-};
+});

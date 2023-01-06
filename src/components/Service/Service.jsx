@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 // consts
 import { serviceData } from "../../services/consts/serviceData";
 
-export const Service = () => {
+export const Service = React.memo(() => {
   return (
     <section className="service">
       <Container>
@@ -41,4 +41,4 @@ export const Service = () => {
       </Container>
     </section>
   );
-};
+});

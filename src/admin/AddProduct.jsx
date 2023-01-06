@@ -14,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 // route
 import { useNavigate } from "react-router-dom";
 
-export const AddProduct = () => {
+export const AddProduct = React.memo(() => {
   const [title, setTitle] = React.useState("");
   const [shortDesc, setShortDesc] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -157,4 +157,4 @@ export const AddProduct = () => {
       </Container>
     </section>
   );
-};
+});

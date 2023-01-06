@@ -9,7 +9,7 @@ import { Container, Row, Col } from "reactstrap";
 // hooks
 import { useGetData } from "../services/hooks/useGetData";
 
-export const Dashboard = () => {
+export const Dashboard = React.memo(() => {
   const { data: products } = useGetData("products");
   const { data: users } = useGetData("users");
 
@@ -45,4 +45,4 @@ export const Dashboard = () => {
       </Container>
     </section>
   );
-};
+});

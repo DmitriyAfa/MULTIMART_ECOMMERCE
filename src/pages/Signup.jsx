@@ -23,7 +23,7 @@ import { storage } from "../firebase.config";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
 
-export const Signup = () => {
+export const Signup = React.memo(() => {
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -148,4 +148,4 @@ export const Signup = () => {
       </section>
     </Helmet>
   );
-};
+});

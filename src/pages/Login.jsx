@@ -19,7 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.config";
 
-export const Login = () => {
+export const Login = React.memo(() => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -95,4 +95,4 @@ export const Login = () => {
       </section>
     </Helmet>
   );
-};
+});

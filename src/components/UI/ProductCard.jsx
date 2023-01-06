@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../../services/redux/slices/cartSlice";
 
-export const ProductCard = ({ item }) => {
+export const ProductCard = React.memo(({ item }) => {
   const dipsatch = useDispatch();
   const { imgUrl, productName, price, category, id } = item;
 
@@ -58,4 +58,4 @@ export const ProductCard = ({ item }) => {
       </div>
     </Col>
   );
-};
+});

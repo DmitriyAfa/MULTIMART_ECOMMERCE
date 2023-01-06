@@ -25,7 +25,7 @@ import { motion } from "framer-motion";
 // hooks
 import { useGetData } from "../services/hooks/useGetData";
 
-export const Home = () => {
+export const Home = React.memo(() => {
   // ===data from firebase===
   const { data: products, loading } = useGetData("products");
   //  ===data from firebase===
@@ -184,4 +184,4 @@ export const Home = () => {
       </section>
     </Helmet>
   );
-};
+});

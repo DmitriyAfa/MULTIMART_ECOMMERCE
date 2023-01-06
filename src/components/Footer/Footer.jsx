@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 // assets
 import logo from "../../assets/images/eco-logo.png";
 
-export const Footer = () => {
+export const Footer = React.memo(() => {
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
@@ -105,4 +105,4 @@ export const Footer = () => {
       </Container>
     </footer>
   );
-};
+});

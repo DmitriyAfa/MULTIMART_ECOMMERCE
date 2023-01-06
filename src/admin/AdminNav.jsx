@@ -31,7 +31,7 @@ const admin__nav = [
   },
 ];
 
-export const AdminNav = () => {
+export const AdminNav = React.memo(() => {
   const { currentUser } = useAuth();
 
   return (
@@ -90,4 +90,4 @@ export const AdminNav = () => {
       </section>
     </>
   );
-};
+});
