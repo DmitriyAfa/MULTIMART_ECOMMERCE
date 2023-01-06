@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/product-details.css";
+import "../styles/product-details.scss";
 
 // react-strap
 import { Container, Row, Col } from "reactstrap";
@@ -133,7 +133,7 @@ export const ProductDetails = React.memo(() => {
                 <motion.button
                   onClick={addToCart}
                   whileTap={{ scale: 1.2 }}
-                  className="buy__btn"
+                  className="_buy-btn"
                 >
                   Add to Card
                 </motion.button>
@@ -149,13 +149,13 @@ export const ProductDetails = React.memo(() => {
             <Col lg="12">
               <div className="tab__wrapper d-flex align-items-center gap-5">
                 <h6
-                  className={`${tab === "desc" ? "active__tab" : ""}`}
+                  className={`${tab === "desc" ? "tab_active" : ""}`}
                   onClick={() => setTab("desc")}
                 >
                   Description
                 </h6>
                 <h6
-                  className={`${tab === "rev" ? "active__tab" : ""}`}
+                  className={`${tab === "rev" ? "tab_active" : ""}`}
                   onClick={() => setTab("rev")}
                 >
                   Reviews
@@ -240,7 +240,7 @@ export const ProductDetails = React.memo(() => {
                         <motion.button
                           whileTap={{ scale: 1.2 }}
                           type="submit"
-                          className="buy__btn"
+                          className="_buy-btn"
                         >
                           Submit
                         </motion.button>

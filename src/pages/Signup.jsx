@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/login.css";
+import "../styles/login.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -134,7 +134,7 @@ export const Signup = React.memo(() => {
                     />
                   </FormGroup>
 
-                  <button type="submit" className="buy__btn auth__btn">
+                  <button type="submit" className="_buy-btn auth__btn">
                     Create an Account
                   </button>
                   <p>

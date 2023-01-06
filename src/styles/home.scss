@@ -1,0 +1,80 @@
+.hero {
+  background: var(--hero-bg);
+
+  h2 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 20px 0;
+  }
+
+  p {
+    color: var(--primary-color);
+    line-height: 28px;
+
+    &:nth-child(1) {
+      font-weight: 500;
+    }
+  }
+
+  &__content {
+    padding-top: 45px;
+
+      @media only screen and (max-width: 992px) {
+        h2 {
+          font-size: 2rem;
+        }
+      }
+
+      @media only screen and (max-width: 768px) {
+        h2 {
+          font-size: 1.6rem;
+        }
+
+        p {
+          font-size: .9rem;
+        }
+      }
+
+      @media only screen and (max-width: 576px) {
+        padding-top: 0;
+        margin-bottom: 40px;
+      }
+    }
+
+  }
+
+  .timer-count {
+    background: var(--primary-color);
+    height: 300px;
+
+    img {
+      width: 70% !important;
+      height: 70% !important;
+      object-fit: contain;
+    }
+
+  }
+  
+  .clock{
+    @media only screen and (max-width: 992px) {
+      &__top-content {
+        text-align: center;
+      }
+      &__top-content h3 {
+        font-size: 1rem !important;
+      }
+      &__top-content h4 {
+        font-size: .9rem !important;
+      }
+      &__down-col {
+        text-align: center;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    ._counter-img {
+      display: none;
+    }
+  }

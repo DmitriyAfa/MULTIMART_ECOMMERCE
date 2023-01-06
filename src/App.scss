@@ -61,16 +61,60 @@ img {
 
 section {
   padding: 60px 0;
+
+
+  @media only screen and (max-width: 768px) {
+    padding: 40px 0;
+  }
 }
+
+
 
 .section__title {
   color: var(--primary-color);
   font-weight: 600;
+
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+
+  @media only screen and (max-width: 992px) {
+    font-size: 1.7rem;
+  }
+
 }
 
+// use in AddProduct, Cart, Checkout, Home, Login, ProductDetails, Signup
+._buy-btn {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 40px;
 
-@media only screen and (max-width: 768px) {
-  section {
-    padding: 40px 0;
+  a:hover {
+    color: #fff;
+  }
+
+  @media only screen and (max-width: 768px) {
+    a {
+      font-size: .9rem;
+    }
+  }
+}
+
+// use in Home, Checkout
+._store-btn {
+  background: #fff;
+  color: var(--primary-color);
+  font-weight: 600;
+
+  a:hover {
+    color: var(--primary-color);
   }
 }

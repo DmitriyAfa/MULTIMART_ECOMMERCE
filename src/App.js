@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 
 // components
 import { Layout } from "./components/Layout/Layout";

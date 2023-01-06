@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/checkout.css";
+import "../styles/checkout.scss";
 
 // react-strap
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
@@ -63,7 +63,7 @@ export const Checkout = React.memo(() => {
                 <h4>
                   Total cost: <span>${totalAmount}</span>
                 </h4>
-                <button className="buy__btn store__btn w-100">
+                <button className="_buy-btn _store-btn w-100">
                   Place an order
                 </button>
               </div>

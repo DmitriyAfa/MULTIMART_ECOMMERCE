@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/login.css";
+import "../styles/login.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -79,7 +79,7 @@ export const Login = React.memo(() => {
                   <button
                     onClick={signin}
                     type="submit"
-                    className="buy__btn auth__btn"
+                    className="_buy-btn auth__btn"
                   >
                     Login
                   </button>

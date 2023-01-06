@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "./footer.css";
+import "./footer.scss";
 
 // reactstrap
 import { Col, Container, Row, ListGroup, ListGroupItem } from "reactstrap";

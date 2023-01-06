@@ -146,7 +146,7 @@ export const AddProduct = React.memo(() => {
                     </FormGroup>
                   </div>
 
-                  <button className="buy__btn" type="submit">
+                  <button className="_buy-btn" type="submit">
                     Add Product
                   </button>
                 </Form>

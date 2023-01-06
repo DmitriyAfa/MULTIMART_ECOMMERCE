@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // styles
-import "../styles/home.css";
+import "../styles/home.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -63,7 +63,7 @@ export const Home = React.memo(() => {
 
   return (
     <Helmet title={"Home"}>
-      <section className="hero__section">
+      <section className="hero">
         <Container>
           <Row>
             <Col lg="6" md="6">
@@ -76,7 +76,7 @@ export const Home = React.memo(() => {
                   adipisci, mollitia ab culpa earum, nihil doloribus! Tenetur
                   nobis aliquam fugiat placeat quasi. Molestiae, quisquam.
                 </p>
-                <motion.button whileTap={{ scale: 1.2 }} className="buy__btn">
+                <motion.button whileTap={{ scale: 1.2 }} className="_buy-btn">
                   <Link to={"/shop"}>SHOP NOW</Link>
                 </motion.button>
               </div>
@@ -122,7 +122,7 @@ export const Home = React.memo(() => {
         </Container>
       </section>
 
-      <section className="timer__count">
+      <section className="timer-count">
         <Container>
           <Row>
             <Col lg="6" md="12" className="count__down-col">
@@ -134,19 +134,19 @@ export const Home = React.memo(() => {
 
               <motion.button
                 whileTap={{ scale: 1.2 }}
-                className="buy__btn store__btn"
+                className="_buy-btn _store-btn"
               >
                 <Link to="/shop">Visit Store</Link>
               </motion.button>
             </Col>
-            <Col lg="6" md="12" className="text-end counter__img">
+            <Col lg="6" md="12" className="text-end _counter-img">
               <img src={counterImage} alt="" />
             </Col>
           </Row>
         </Container>
       </section>
 
-      <section className="new__arrivals">
+      <section className="new-arrivals">
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">
@@ -167,7 +167,7 @@ export const Home = React.memo(() => {
         </Container>
       </section>
 
-      <section className="popular__category">
+      <section className="popular-category">
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">

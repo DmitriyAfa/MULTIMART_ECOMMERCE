@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 // styles
-import "./header.css";
+import "./header.scss";
 
 // Router
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -49,9 +49,9 @@ export const Header = React.memo(() => {
       document.body.scrollTop > 80 ||
       document.documentElement.scrollTop > 80
     ) {
-      headerRef.current.classList.add("sticky__header");
+      headerRef.current.classList.add("header_sticky");
     } else {
-      headerRef.current.classList.remove("sticky__header");
+      headerRef.current.classList.remove("header_sticky");
     }
   };
 
@@ -72,7 +72,7 @@ export const Header = React.memo(() => {
     return () => window.removeEventListener("scroll", setStickyHeader);
   }, []);
 
-  const menuToggle = () => menuRef.current.classList.toggle("active__menu");
+  const menuToggle = () => menuRef.current.classList.toggle("nav_active");
 
   const navigateToCart = () => {
     navigate("/cart");
@@ -80,11 +80,12 @@ export const Header = React.memo(() => {
 
   const toggleProfileActions = () =>
     profileActionRef.current.classList.toggle("profile__actions_show");
+
   return (
-    <header ref={headerRef}>
+    <header className="header" ref={headerRef}>
       <Container>
         <Row>
-          <div className="nav__wrapper">
+          <div className="header__nav">
             <div className="logo">
               <img src={logo} alt="logo" />
               <div>
@@ -92,8 +93,8 @@ export const Header = React.memo(() => {
               </div>
             </div>
 
-            <div className="navigation" ref={menuRef} onClick={menuToggle}>
-              <ul className="menu">
+            <nav className="nav" ref={menuRef} onClick={menuToggle}>
+              <ul className="nav__menu">
                 {nav__links.map((l, i) => {
                   const { path, display } = l;
 
@@ -101,7 +102,7 @@ export const Header = React.memo(() => {
                     <li className="nav__item" key={display}>
                       <NavLink
                         className={(navClass) =>
-                          navClass.isActive ? "nav__active" : ""
+                          navClass.isActive ? "_nav-link_active" : ""
                         }
                         to={path}
                       >
@@ -111,19 +112,19 @@ export const Header = React.memo(() => {
                   );
                 })}
               </ul>
-            </div>
+            </nav>
 
-            <div className="nav__icons">
-              <span className="fav__icon">
+            <div className="header__icons">
+              <span className="icon-fav">
                 <i className="ri-heart-line"></i>
                 <span className="badge">2</span>
               </span>
-              <span className="cart__icon" onClick={navigateToCart}>
+              <span className="icon-cart" onClick={navigateToCart}>
                 <i className="ri-shopping-bag-line"></i>
                 <span className="badge">{totalQuantity}</span>
               </span>
 
-              <div className="profile">
+              <div className="header__profile">
                 <motion.img
                   whileTap={{ scale: 1.2 }}
                   src={currentUser ? currentUser.photoURL : userIcon}
@@ -132,7 +133,7 @@ export const Header = React.memo(() => {
                 />
 
                 <div
-                  className="profile__actions"
+                  className="actions"
                   ref={profileActionRef}
                   onClick={toggleProfileActions}
                 >

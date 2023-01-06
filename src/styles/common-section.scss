@@ -1,23 +1,23 @@
-.common__section {
+.common-section {
   background: linear-gradient(rgba(0, 0, 0, 0.564), rgba(0, 0, 0, 0.564)), url('../assets/images/table.jpg') no-repeat center center;
   background-size: cover;
   padding: 100px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.common__section h1 {
-  color: #fff;
-  font-weight: 600;
+  h1 {
+    color: #fff;
+    font-weight: 600;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-  .common__section {
+  .common-section {
     padding: 70px 0;
-  }
 
-  .common__section h1 {
-    font-size: 1.4rem;
+    h1 {
+      font-size: 1.4rem;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 
 // import styles
-import "./service.css";
+import "./service.scss";
 
 // reactstrap
 import { Container, Row, Col } from "reactstrap";

@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/dashboard.css";
+import "../styles/dashboard.scss";
 
 // reactstrap
 import { Container, Row, Col } from "reactstrap";
@@ -18,25 +18,25 @@ export const Dashboard = React.memo(() => {
       <Container>
         <Row>
           <Col className="lg-3">
-            <div className="revenue__box">
+            <div className="box-revenue _box">
               <h5>Total Sales</h5>
               <span>$8327</span>
             </div>
           </Col>
           <Col className="lg-3">
-            <div className="order__box">
+            <div className="box-order _box">
               <h5>Orders</h5>
               <span>778</span>
             </div>
           </Col>
           <Col className="lg-3">
-            <div className="products__box">
+            <div className="box-products _box">
               <h5>Total Products</h5>
               <span>{products.length}</span>
             </div>
           </Col>
           <Col className="lg-3">
-            <div className="users__box">
+            <div className="box-users _box">
               <h5>Total Users</h5>
               <span>{users.length}</span>
             </div>

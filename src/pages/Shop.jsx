@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/shop.css";
+import "../styles/shop.scss";
 
 // components
 import { CommonSection } from "../components/UI/CommonSection";
@@ -66,7 +66,7 @@ export const Shop = React.memo(() => {
         <Container>
           <Row>
             <Col lg="3" md="6">
-              <div className="filter__widget">
+              <div className="filter-widget">
                 <select onChange={handleFilter}>
                   <option>Filter By Category</option>
                   <option value="sofa">Sofa</option>
@@ -78,7 +78,7 @@ export const Shop = React.memo(() => {
               </div>
             </Col>
             <Col lg="3" md="6" className="text-end">
-              <div className="filter__widget">
+              <div className="filter-widget">
                 <select>
                   <option>Sort By</option>
                   <option value="ascending">Ascending</option>
@@ -87,7 +87,7 @@ export const Shop = React.memo(() => {
               </div>
             </Col>
             <Col lg="6" md="12">
-              <div className="search__box">
+              <div className="search-box">
                 <input
                   type="text"
                   placeholder="Search....."
