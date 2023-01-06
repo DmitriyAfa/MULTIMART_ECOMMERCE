@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/checkout.css";
+import "../styles/checkout.scss";
 
 // react-strap
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
@@ -13,7 +13,7 @@ import { CommonSection } from "../components/UI/CommonSection";
 // redux
 import { useSelector } from "react-redux";
 
-export const Checkout = () => {
+export const Checkout = React.memo(() => {
   const { totalQuantity, totalAmount } = useSelector((state) => state.cart);
   return (
     <Helmet title={"Checkout"}>
@@ -63,7 +63,7 @@ export const Checkout = () => {
                 <h4>
                   Total cost: <span>${totalAmount}</span>
                 </h4>
-                <button className="buy__btn store__btn w-100">
+                <button className="_buy-btn _store-btn w-100">
                   Place an order
                 </button>
               </div>
@@ -73,4 +73,4 @@ export const Checkout = () => {
       </section>
     </Helmet>
   );
-};
+});

@@ -20,7 +20,7 @@ import { Container, Row, Col } from "reactstrap";
 // router
 import { Link } from "react-router-dom";
 
-export const Cart = () => {
+export const Cart = React.memo(() => {
   const { cartItems } = useSelector((state) => state.cart);
   const { totalAmount } = useSelector((state) => state.cart);
 
@@ -63,10 +63,10 @@ export const Cart = () => {
                 taxes and shipping will calculate in checkout
               </p>
               <div>
-                <button className="buy__btn w-100">
+                <button className="_buy-btn w-100">
                   <Link to="/checkout">Checkout</Link>
                 </button>
-                <button className="buy__btn w-100 mt-3">
+                <button className="_buy-btn w-100 mt-3">
                   <Link to="/shop">Continue Shopping</Link>
                 </button>
               </div>
@@ -76,9 +76,9 @@ export const Cart = () => {
       </section>
     </Helmet>
   );
-};
+});
 
-const Tr = ({ item }) => {
+const Tr = React.memo(({ item }) => {
   const { imgUrl, productName, price, quantity, id } = item;
   const dispatch = useDispatch();
   const deleteProduct = () => {
@@ -101,4 +101,4 @@ const Tr = ({ item }) => {
       </td>
     </tr>
   );
-};
+});

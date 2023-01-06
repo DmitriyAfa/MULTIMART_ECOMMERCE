@@ -14,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 // route
 import { useNavigate } from "react-router-dom";
 
-export const AddProduct = () => {
+export const AddProduct = React.memo(() => {
   const [title, setTitle] = React.useState("");
   const [shortDesc, setShortDesc] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -46,7 +46,7 @@ export const AddProduct = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await addDoc(docRef, {
-              title: title,
+              productName: title,
               shortDesc: shortDesc,
               description: description,
               category: category,
@@ -125,6 +125,7 @@ export const AddProduct = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                       >
+                        <option> Select category</option>
                         <option value="chair">Chair</option>
                         <option value="sofa">Sofa</option>
                         <option value="mobile">Mobile</option>
@@ -145,7 +146,7 @@ export const AddProduct = () => {
                     </FormGroup>
                   </div>
 
-                  <button className="buy__btn" type="submit">
+                  <button className="_buy-btn" type="submit">
                     Add Product
                   </button>
                 </Form>
@@ -156,4 +157,4 @@ export const AddProduct = () => {
       </Container>
     </section>
   );
-};
+});

@@ -1,3 +1,4 @@
+import React from "react";
 // router
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ProtectedRouter } from "./ProtectedRouter";
@@ -16,7 +17,7 @@ import {
 // admin
 import { AddProduct, AllProducts, Dashboard, Users } from "../admin/index";
 
-export const Routers = () => {
+export const Routers = React.memo(() => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to={"/home"} />} />
@@ -37,4 +38,4 @@ export const Routers = () => {
       <Route path="signup" element={<Signup />} />
     </Routes>
   );
-};
+});

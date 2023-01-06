@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/product-details.css";
+import "../styles/product-details.scss";
 
 // react-strap
 import { Container, Row, Col } from "reactstrap";
@@ -22,30 +22,50 @@ import { ProductsList } from "../components/UI/ProductsList";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../services/redux/slices/cartSlice";
 
-// consts
-import { products } from "../services/consts/products";
+// firebase
+import { db } from "../firebase.config";
+import { doc, getDoc } from "firebase/firestore";
 
-export const ProductDetails = () => {
+// hooks
+import { useGetData } from "../services/hooks/useGetData";
+
+export const ProductDetails = React.memo(() => {
+  const [product, setProduct] = React.useState({});
   const [tab, setTab] = React.useState("desc");
   const reviewUser = React.useRef("");
   const reviewMSG = React.useRef("");
   const [rating, setRating] = React.useState(null);
   const params = useParams();
-  const product = products.find((item) => item.id === params.id);
+  // const product = products.find((item) => item.id === params.id);
 
-  const dispatch = useDispatch();
-
+  const { data: products } = useGetData("products");
   const {
     imgUrl,
     id,
     productName,
-    avgRating,
-    reviews,
+    // avgRating,
+    // reviews,
     description,
     shortDesc,
     price,
     category,
   } = product;
+
+  const docRef = doc(db, "products", params.id);
+
+  React.useEffect(() => {
+    const getProduct = async () => {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setProduct(docSnap.data());
+      } else {
+        console.log("no the product!");
+      }
+    };
+    getProduct();
+  }, []);
+
+  const dispatch = useDispatch();
 
   const relatedProducts = products.filter((item) => item.category === category);
 
@@ -102,20 +122,18 @@ export const ProductDetails = () => {
                       <i className="ri-star-half-s-line"></i>
                     </span>
                   </div>
-                  <p>
-                    (<span>{avgRating}</span> ratings)
-                  </p>
+                  <p>{/* (<span>{avgRating}</span> ratings) */}</p>
                 </div>
                 <div className="d-flex align-items-center gap-5">
                   <span className="product__price">${price}</span>
-                  <span>Category: {category.toUpperCase()}</span>
+                  <span>Category: {category?.toUpperCase()}</span>
                 </div>
                 <p className="mt-3">{shortDesc}</p>
 
                 <motion.button
                   onClick={addToCart}
                   whileTap={{ scale: 1.2 }}
-                  className="buy__btn"
+                  className="_buy-btn"
                 >
                   Add to Card
                 </motion.button>
@@ -131,16 +149,17 @@ export const ProductDetails = () => {
             <Col lg="12">
               <div className="tab__wrapper d-flex align-items-center gap-5">
                 <h6
-                  className={`${tab === "desc" ? "active__tab" : ""}`}
+                  className={`${tab === "desc" ? "tab_active" : ""}`}
                   onClick={() => setTab("desc")}
                 >
                   Description
                 </h6>
                 <h6
-                  className={`${tab === "rev" ? "active__tab" : ""}`}
+                  className={`${tab === "rev" ? "tab_active" : ""}`}
                   onClick={() => setTab("rev")}
                 >
-                  Reviews ({reviews.length})
+                  Reviews
+                  {/* ({reviews.length}) */}
                 </h6>
               </div>
 
@@ -152,7 +171,7 @@ export const ProductDetails = () => {
                 <div className="product__review mt-5">
                   <div className="review__wrapper">
                     <ul>
-                      {reviews?.map(({ rating, text }, index) => {
+                      {/* {reviews?.map(({ rating, text }, index) => {
                         return (
                           <li className="mb-4" key={rating + index}>
                             <h6>John Doe</h6>
@@ -160,7 +179,7 @@ export const ProductDetails = () => {
                             <p>{text}</p>
                           </li>
                         );
-                      })}
+                      })} */}
                     </ul>
 
                     <div className="review__form">
@@ -221,7 +240,7 @@ export const ProductDetails = () => {
                         <motion.button
                           whileTap={{ scale: 1.2 }}
                           type="submit"
-                          className="buy__btn"
+                          className="_buy-btn"
                         >
                           Submit
                         </motion.button>
@@ -240,4 +259,4 @@ export const ProductDetails = () => {
       </section>
     </Helmet>
   );
-};
+});

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // styles
-import "../styles/home.css";
+import "../styles/home.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -22,10 +22,13 @@ import { Link } from "react-router-dom";
 // animation
 import { motion } from "framer-motion";
 
-//consts
-import { products } from "../services/consts/products";
+// hooks
+import { useGetData } from "../services/hooks/useGetData";
 
-export const Home = () => {
+export const Home = React.memo(() => {
+  // ===data from firebase===
+  const { data: products, loading } = useGetData("products");
+  //  ===data from firebase===
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [bestSalesProducts, setBestSalesProducts] = useState([]);
   const [mobileProducts, setMobileProducts] = useState([]);
@@ -56,10 +59,11 @@ export const Home = () => {
     setMobileProducts(filteredMobileProducts);
     setWirelessProducts(filteredWirelessProducts);
     setPopularProducts(filteredPopularProducts);
-  }, []);
+  }, [products]);
+
   return (
     <Helmet title={"Home"}>
-      <section className="hero__section">
+      <section className="hero">
         <Container>
           <Row>
             <Col lg="6" md="6">
@@ -72,7 +76,7 @@ export const Home = () => {
                   adipisci, mollitia ab culpa earum, nihil doloribus! Tenetur
                   nobis aliquam fugiat placeat quasi. Molestiae, quisquam.
                 </p>
-                <motion.button whileTap={{ scale: 1.2 }} className="buy__btn">
+                <motion.button whileTap={{ scale: 1.2 }} className="_buy-btn">
                   <Link to={"/shop"}>SHOP NOW</Link>
                 </motion.button>
               </div>
@@ -93,7 +97,12 @@ export const Home = () => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Trending Products</h2>
             </Col>
-            <ProductsList data={trendingProducts} />
+
+            {loading ? (
+              <h5 className="fw-bold">Loading......</h5>
+            ) : (
+              <ProductsList data={trendingProducts} />
+            )}
           </Row>
         </Container>
       </section>
@@ -104,12 +113,16 @@ export const Home = () => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Best Sales</h2>
             </Col>
-            <ProductsList data={bestSalesProducts} />
+            {loading ? (
+              <h5 className="fw-bold">Loading......</h5>
+            ) : (
+              <ProductsList data={bestSalesProducts} />
+            )}
           </Row>
         </Container>
       </section>
 
-      <section className="timer__count">
+      <section className="timer-count">
         <Container>
           <Row>
             <Col lg="6" md="12" className="count__down-col">
@@ -121,40 +134,54 @@ export const Home = () => {
 
               <motion.button
                 whileTap={{ scale: 1.2 }}
-                className="buy__btn store__btn"
+                className="_buy-btn _store-btn"
               >
                 <Link to="/shop">Visit Store</Link>
               </motion.button>
             </Col>
-            <Col lg="6" md="12" className="text-end counter__img">
+            <Col lg="6" md="12" className="text-end _counter-img">
               <img src={counterImage} alt="" />
             </Col>
           </Row>
         </Container>
       </section>
 
-      <section className="new__arrivals">
+      <section className="new-arrivals">
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">
               <h2 className="section__title">New Arrivals</h2>
             </Col>
-            <ProductsList data={mobileProducts} />
-            <ProductsList data={wirelessProducts} />
+
+            {loading ? (
+              <h5 className="fw-bold">Loading......</h5>
+            ) : (
+              <ProductsList data={mobileProducts} />
+            )}
+            {loading ? (
+              <h5 className="fw-bold">Loading......</h5>
+            ) : (
+              <ProductsList data={wirelessProducts} />
+            )}
           </Row>
         </Container>
       </section>
 
-      <section className="popular__category">
+      <section className="popular-category">
         <Container>
           <Row>
             <Col lg="12" className="text-center mb-5">
               <h2 className="section__title">Popular in Category</h2>
             </Col>
-            <ProductsList data={popularProducts} />
+
+            {loading ? (
+              <h5 className="fw-bold">Loading......</h5>
+            ) : (
+              <ProductsList data={popularProducts} />
+            )}
           </Row>
         </Container>
       </section>
     </Helmet>
   );
-};
+});

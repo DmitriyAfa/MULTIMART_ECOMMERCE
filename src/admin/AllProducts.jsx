@@ -13,7 +13,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 // animation
 import { toast } from "react-toastify";
 
-export const AllProducts = () => {
+export const AllProducts = React.memo(() => {
   const { data: productsData, loading } = useGetData("products");
 
   const deleteProduct = async (id) => {
@@ -70,4 +70,4 @@ export const AllProducts = () => {
       </Container>
     </section>
   );
-};
+});

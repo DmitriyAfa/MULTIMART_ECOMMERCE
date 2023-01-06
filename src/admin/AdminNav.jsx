@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/admin-nav.css";
+import "../styles/admin-nav.scss";
 
 // reactstrap
 import { Container, Row } from "reactstrap";
@@ -31,7 +31,7 @@ const admin__nav = [
   },
 ];
 
-export const AdminNav = () => {
+export const AdminNav = React.memo(() => {
   const { currentUser } = useAuth();
 
   return (
@@ -50,7 +50,7 @@ export const AdminNav = () => {
                   <i className="ri-search-line"></i>
                 </span>
               </div>
-              <div className="admin__nav-top-right">
+              <div className="admin__nav-top_right">
                 <span>
                   <i className="ri-notification-3-line"></i>
                 </span>
@@ -74,7 +74,7 @@ export const AdminNav = () => {
                     <li className="admin__menu-item" key={display}>
                       <NavLink
                         className={(navClass) =>
-                          navClass.isActive ? "active__admin-menu" : ""
+                          navClass.isActive ? "_admin-menu_active" : ""
                         }
                         to={path}
                       >
@@ -90,4 +90,4 @@ export const AdminNav = () => {
       </section>
     </>
   );
-};
+});

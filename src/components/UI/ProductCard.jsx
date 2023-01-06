@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../../styles/product-card.css";
+import "../../styles/product-card.scss";
 
 // reactstrap
 import { Col } from "reactstrap";
@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "../../services/redux/slices/cartSlice";
 
-export const ProductCard = ({ item }) => {
+export const ProductCard = React.memo(({ item }) => {
   const dipsatch = useDispatch();
   const { imgUrl, productName, price, category, id } = item;
 
@@ -39,7 +39,7 @@ export const ProductCard = ({ item }) => {
   };
   return (
     <Col lg="3" md="4" className="mb-2">
-      <div className="product__item">
+      <div className="product">
         <div className="product__img">
           <motion.img whileHover={{ scale: 0.9 }} src={imgUrl} alt="card" />
         </div>
@@ -58,4 +58,4 @@ export const ProductCard = ({ item }) => {
       </div>
     </Col>
   );
-};
+});

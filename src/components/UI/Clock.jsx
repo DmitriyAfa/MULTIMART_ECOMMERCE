@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // styles
-import "../../styles/clock.css";
+import "../../styles/clock.scss";
 
 export const Clock = () => {
   const [days, setDays] = useState();

@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/login.css";
+import "../styles/login.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -19,7 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.config";
 
-export const Login = () => {
+export const Login = React.memo(() => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -79,7 +79,7 @@ export const Login = () => {
                   <button
                     onClick={signin}
                     type="submit"
-                    className="buy__btn auth__btn"
+                    className="_buy-btn auth__btn"
                   >
                     Login
                   </button>
@@ -95,4 +95,4 @@ export const Login = () => {
       </section>
     </Helmet>
   );
-};
+});

@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 // admin
 import { AdminNav } from "../../admin";
 
-export const Layout = () => {
+export const Layout = React.memo(() => {
   const location = useLocation();
   return (
     <>
@@ -23,4 +23,4 @@ export const Layout = () => {
       <Footer />
     </>
   );
-};
+});

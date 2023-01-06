@@ -1,7 +1,7 @@
 import React from "react";
 
 // styles
-import "../styles/login.css";
+import "../styles/login.scss";
 
 // components
 import { Helmet } from "../components/Helmet/Helmet";
@@ -23,7 +23,7 @@ import { storage } from "../firebase.config";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
 
-export const Signup = () => {
+export const Signup = React.memo(() => {
   const [userName, setUserName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -134,7 +134,7 @@ export const Signup = () => {
                     />
                   </FormGroup>
 
-                  <button type="submit" className="buy__btn auth__btn">
+                  <button type="submit" className="_buy-btn auth__btn">
                     Create an Account
                   </button>
                   <p>
@@ -148,4 +148,4 @@ export const Signup = () => {
       </section>
     </Helmet>
   );
-};
+});
