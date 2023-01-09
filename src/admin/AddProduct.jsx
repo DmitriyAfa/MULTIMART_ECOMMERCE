@@ -1,27 +1,39 @@
 import React from "react";
 
+// uuid
+import { v4 as uuidv4 } from "uuid";
+
 // reactstrap
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
 
 // animation
+import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 // firebase
 import { db, storage } from "../firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
+import { useAuth } from "../services/hooks/useAuth";
 
 // route
 import { useNavigate } from "react-router-dom";
 
 export const AddProduct = React.memo(() => {
+  // ===data from firebase===
+  const { currentUser } = useAuth();
+  //  ===data from firebase===
   const [title, setTitle] = React.useState("");
   const [shortDesc, setShortDesc] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [price, setPrice] = React.useState("");
+  const [rating, setRating] = React.useState(null);
+  const [review, setReview] = React.useState("");
   const [productImg, setProductImg] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+
+  console.log(currentUser);
 
   const navigate = useNavigate();
 
@@ -46,12 +58,23 @@ export const AddProduct = React.memo(() => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await addDoc(docRef, {
+              id: uuidv4(),
               productName: title,
               shortDesc: shortDesc,
               description: description,
               category: category,
               price: price,
               imgUrl: downloadURL,
+              reviews: [
+                {
+                  photoURL: currentUser?.photoURL,
+                  name: currentUser?.displayName,
+                  rating: rating,
+                  text: review,
+                  uid: currentUser?.uid,
+                },
+              ],
+              avgRating: rating,
             });
           });
         }
@@ -107,6 +130,49 @@ export const AddProduct = React.memo(() => {
                       required
                     />
                   </FormGroup>
+                  <FormGroup className="form__group">
+                    <span>Review</span>
+                    <input
+                      type="text"
+                      placeholder="Review...."
+                      value={review}
+                      onChange={(e) => setReview(e.target.value)}
+                      required
+                    />
+                  </FormGroup>
+
+                  <div className="form__group rating__group d-flex align-items-center gap-5">
+                    <motion.span
+                      whileTap={{ scale: 1.2 }}
+                      onClick={() => setRating(1)}
+                    >
+                      1 <i className="ri-star-s-fill"></i>
+                    </motion.span>
+                    <motion.span
+                      whileTap={{ scale: 1.2 }}
+                      onClick={() => setRating(2)}
+                    >
+                      2 <i className="ri-star-s-fill"></i>
+                    </motion.span>
+                    <motion.span
+                      whileTap={{ scale: 1.2 }}
+                      onClick={() => setRating(3)}
+                    >
+                      3 <i className="ri-star-s-fill"></i>
+                    </motion.span>
+                    <motion.span
+                      whileTap={{ scale: 1.2 }}
+                      onClick={() => setRating(4)}
+                    >
+                      4 <i className="ri-star-s-fill"></i>
+                    </motion.span>
+                    <motion.span
+                      whileTap={{ scale: 1.2 }}
+                      onClick={() => setRating(5)}
+                    >
+                      5 <i className="ri-star-s-fill"></i>
+                    </motion.span>
+                  </div>
                   <div className="d-flex align-items-center justify-content-between gap-5">
                     <FormGroup className="form__group w-50">
                       <span>Price</span>
