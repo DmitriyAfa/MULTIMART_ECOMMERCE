@@ -21,6 +21,7 @@ import { addCartItem } from "../../services/redux/slices/cartSlice";
 
 export const ProductCard = React.memo(({ item }) => {
   const dipsatch = useDispatch();
+  const [like, setLike] = React.useState(false);
   const { imgUrl, productName, price, category, id } = item;
 
   const addToCart = () => {
@@ -34,9 +35,9 @@ export const ProductCard = React.memo(({ item }) => {
         totalPrice: price,
       })
     );
-
     toast.success("Product added successfully");
   };
+
   return (
     <Col lg="3" md="4" className="mb-2">
       <div className="product">
@@ -47,7 +48,16 @@ export const ProductCard = React.memo(({ item }) => {
           <h3 className="product__name">
             <Link to={`/shop/${id}`}>{productName}</Link>
           </h3>
-          <span>{category}</span>
+          <div className="d-flex align-items-center justify-content-between">
+            <span>{category}</span>
+            <span onClick={() => setLike(!like)} className={`product__like`}>
+              {like ? (
+                <i className="ri-heart-fill"></i>
+              ) : (
+                <i className="ri-heart-line" />
+              )}
+            </span>
+          </div>
         </div>
         <div className="product__card-bottom d-flex align-items-center justify-content-between p-2">
           <span className="price">${price}</span>

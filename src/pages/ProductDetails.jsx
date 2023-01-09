@@ -24,34 +24,36 @@ import { addCartItem } from "../services/redux/slices/cartSlice";
 
 // firebase
 import { db } from "../firebase.config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 // hooks
 import { useGetData } from "../services/hooks/useGetData";
+import { useAuth } from "../services/hooks/useAuth";
 
 export const ProductDetails = React.memo(() => {
+  const params = useParams();
+  // ===data from firebase===
+  const { currentUser } = useAuth();
+  const { data: products } = useGetData("products");
+  const docRef = doc(db, "products", params.id);
+  //  ===data from firebase===
+  const dispatch = useDispatch();
   const [product, setProduct] = React.useState({});
   const [tab, setTab] = React.useState("desc");
-  const reviewUser = React.useRef("");
   const reviewMSG = React.useRef("");
   const [rating, setRating] = React.useState(null);
-  const params = useParams();
-  // const product = products.find((item) => item.id === params.id);
 
-  const { data: products } = useGetData("products");
   const {
     imgUrl,
     id,
     productName,
-    // avgRating,
-    // reviews,
+    avgRating,
+    reviews,
     description,
     shortDesc,
     price,
     category,
   } = product;
-
-  const docRef = doc(db, "products", params.id);
 
   React.useEffect(() => {
     const getProduct = async () => {
@@ -65,23 +67,36 @@ export const ProductDetails = React.memo(() => {
     getProduct();
   }, []);
 
-  const dispatch = useDispatch();
-
   const relatedProducts = products.filter((item) => item.category === category);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    const reviewUserName = reviewUser.current.value;
     const reviewUserMSG = reviewMSG.current.value;
 
-    const reviewObj = {
-      userName: reviewUserName,
-      text: reviewUserMSG,
-      rating,
-    };
-    console.log(reviewObj);
-    toast.success("Review submited");
+    let reviewData;
+
+    if (!rating) {
+      toast.error("Please, choose rating");
+    } else {
+      reviewData = {
+        photoURL: currentUser?.photoURL,
+        name: currentUser?.displayName,
+        rating: rating,
+        text: reviewUserMSG,
+        uid: currentUser?.uid,
+      };
+
+      await updateDoc(docRef, {
+        reviews: [...reviews, reviewData],
+      })
+        .then(() => {
+          toast.success("Review submited");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const addToCart = () => {
@@ -122,7 +137,9 @@ export const ProductDetails = React.memo(() => {
                       <i className="ri-star-half-s-line"></i>
                     </span>
                   </div>
-                  <p>{/* (<span>{avgRating}</span> ratings) */}</p>
+                  <p>
+                    (<span>{avgRating}</span> ratings)
+                  </p>
                 </div>
                 <div className="d-flex align-items-center gap-5">
                   <span className="product__price">${price}</span>
@@ -158,8 +175,7 @@ export const ProductDetails = React.memo(() => {
                   className={`${tab === "rev" ? "tab_active" : ""}`}
                   onClick={() => setTab("rev")}
                 >
-                  Reviews
-                  {/* ({reviews.length}) */}
+                  Reviews ({reviews?.length})
                 </h6>
               </div>
 
@@ -171,29 +187,25 @@ export const ProductDetails = React.memo(() => {
                 <div className="product__review mt-5">
                   <div className="review__wrapper">
                     <ul>
-                      {/* {reviews?.map(({ rating, text }, index) => {
+                      {reviews?.map(({ rating, text, uid, name }, index) => {
                         return (
-                          <li className="mb-4" key={rating + index}>
-                            <h6>John Doe</h6>
+                          <li
+                            className={`mb-4 ${
+                              uid === currentUser?.uid ? "_own-rating" : ""
+                            }`}
+                            key={rating + index}
+                          >
+                            <h6>{name}</h6>
                             <span>{rating} (rating)</span>
                             <p>{text}</p>
                           </li>
                         );
-                      })} */}
+                      })}
                     </ul>
 
                     <div className="review__form">
                       <h4>Leave your experience</h4>
                       <form action="" onSubmit={submitHandler}>
-                        <div className="form__group">
-                          <input
-                            type="text"
-                            placeholder="Enter name"
-                            ref={reviewUser}
-                            required
-                          />
-                        </div>
-
                         <div className="form__group rating__group d-flex align-items-center gap-5">
                           <motion.span
                             whileTap={{ scale: 1.2 }}
