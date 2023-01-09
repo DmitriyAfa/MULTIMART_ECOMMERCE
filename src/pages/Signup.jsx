@@ -76,6 +76,7 @@ export const Signup = React.memo(() => {
               displayName: userName,
               email,
               photoURL: downoloadURL,
+              role: "user",
             });
           });
         }

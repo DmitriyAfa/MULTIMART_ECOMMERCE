@@ -33,9 +33,7 @@ export const AllProducts = React.memo(() => {
                   <th>Title</th>
                   <th>Category</th>
                   <th>Price</th>
-                  <th>
-                    <button className="btn btn-danger">Delete</button>
-                  </th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

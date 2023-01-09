@@ -3,6 +3,7 @@
 
 /*  css variables */
 :root {
+  --index: calc(1vh + 1vw);
   --card-bg-01: #fdefe6;
   --card-bg-02: #d6e5fb;
   --card-bg-03: #ceebe9;
@@ -13,7 +14,6 @@
   --small-text-color: #999;
   --heading-text-color: #0a1d37;
 }
-
 /* reset browser default */
 * {
   margin: 0;

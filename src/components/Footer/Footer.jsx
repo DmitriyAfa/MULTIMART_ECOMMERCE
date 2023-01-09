@@ -9,8 +9,8 @@ import { Col, Container, Row, ListGroup, ListGroupItem } from "reactstrap";
 // router
 import { Link } from "react-router-dom";
 
-// assets
-import logo from "../../assets/images/eco-logo.png";
+// assetse
+import logo from "../../assets/images/eco-logo_white.png";
 
 export const Footer = React.memo(() => {
   const year = new Date().getFullYear();
@@ -20,7 +20,7 @@ export const Footer = React.memo(() => {
         <Row>
           <Col lg="4" className="mb-4" md="6">
             <div className="logo">
-              <img src={logo} alt="logo" />
+              <img className="_img_footer" src={logo} alt="logo" />
               <div>
                 <h1 className="text-white">Multimart</h1>
               </div>

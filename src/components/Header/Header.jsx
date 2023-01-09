@@ -14,6 +14,7 @@ import { Container, Row } from "reactstrap";
 
 // hooks
 import { useAuth } from "../../services/hooks/useAuth";
+import { useGetData } from "../../services/hooks/useGetData";
 
 // firebase
 import { signOut } from "firebase/auth";
@@ -33,15 +34,20 @@ const nav__links = [
   { path: "home", display: "Home" },
   { path: "shop", display: "Shop" },
   { path: "cart", display: "Cart" },
+  // { path: "dashboard", display: "Dashboard" },
 ];
 
 export const Header = React.memo(() => {
+  // ===data from firebase===
+  const { data } = useGetData("users");
+  const { currentUser } = useAuth();
+  //  ===data from firebase===
+  const user = data?.filter(({ uid }) => uid === currentUser?.uid);
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   const profileActionRef = useRef(null);
-
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+
   const { totalQuantity } = useSelector((state) => state.cart);
 
   const setStickyHeader = () => {
@@ -71,7 +77,6 @@ export const Header = React.memo(() => {
 
     return () => window.removeEventListener("scroll", setStickyHeader);
   }, []);
-
   const menuToggle = () => menuRef.current.classList.toggle("nav_active");
 
   const navigateToCart = () => {
@@ -89,7 +94,9 @@ export const Header = React.memo(() => {
             <div className="logo">
               <img src={logo} alt="logo" />
               <div>
-                <h1>Multimart</h1>
+                <NavLink to="/home">
+                  <h1>Multimart</h1>
+                </NavLink>
               </div>
             </div>
 
@@ -138,12 +145,18 @@ export const Header = React.memo(() => {
                   onClick={toggleProfileActions}
                 >
                   {currentUser ? (
-                    <span onClick={logout}>Logout</span>
+                    <div className="d-flex align-items-center justify-content-center flex-column">
+                      <span className="_hover_primary" onClick={logout}>
+                        Logout
+                      </span>
+                      {user[0]?.role === "admin" ? (
+                        <Link to="/dashboard">Dashboard</Link>
+                      ) : null}
+                    </div>
                   ) : (
                     <div className="d-flex align-items-center justify-content-center flex-column">
                       <Link to="/signup">Signup</Link>
                       <Link to="/login">Login</Link>
-                      <Link to="/dashboard">Dashboard</Link>
                     </div>
                   )}
                 </div>
