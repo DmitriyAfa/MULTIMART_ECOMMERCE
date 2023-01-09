@@ -29,6 +29,10 @@ const admin__nav = [
     display: "Users",
     path: "/dashboard/users",
   },
+  {
+    display: "Add-Product",
+    path: "/dashboard/add-product",
+  },
 ];
 
 export const AdminNav = React.memo(() => {
@@ -41,7 +45,9 @@ export const AdminNav = React.memo(() => {
           <Container>
             <div className="admin__nav-wrapper-top">
               <div className="logo">
-                <h2>Multimart</h2>
+                <NavLink to="/home">
+                  <h2>Multimart</h2>
+                </NavLink>
               </div>
 
               <div className="search__box">
