@@ -94,11 +94,30 @@
     display: flex;
     align-items: center;
     column-gap: 5px;
-    color: coral;
+    color: wheat;
     font-weight: 600;
     cursor: pointer;
+
+    &:hover {
+      color: coral;
+    }
   }
 }
+
+.form__group ._star-coral{
+  color: coral;
+}
+
+.go-auth{
+  display: flex;
+
+  a{
+    cursor: pointer;
+    margin: 0 10px;
+    color: var(--bs-link-color);
+  }
+}
+
 
 .related__title {
   font-size: 1.2rem;
@@ -112,6 +131,6 @@
   }
 }
 
-._own-rating{
+._own-rating {
   background: rgba(255, 127, 80, 0.115);
 }

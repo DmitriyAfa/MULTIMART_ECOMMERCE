@@ -24,25 +24,18 @@ export const Checkout = React.memo(() => {
           <Row>
             <Col lg="8">
               <h6 className="mb-4 fw-bold">Billin Information</h6>
-
               <Form className="billing__form">
                 <FormGroup className="form__group">
-                  <input type="text" placeholder="Enter your name" />
+                  <input type="text" placeholder="Enter your name" required />
                 </FormGroup>
                 <FormGroup className="form__group">
-                  <input type="email" placeholder="Enter your email" />
+                  <input type="email" placeholder="Enter your email" required />
                 </FormGroup>
                 <FormGroup className="form__group">
-                  <input type="number" placeholder="Phone number" />
+                  <input type="number" placeholder="Phone number" required />
                 </FormGroup>
                 <FormGroup className="form__group">
-                  <input type="text" placeholder="Street address" />
-                </FormGroup>
-                <FormGroup className="form__group">
-                  <input type="text" placeholder="Postal code" />
-                </FormGroup>
-                <FormGroup className="form__group">
-                  <input type="text" placeholder="Country" />
+                  <input type="text" placeholder="Street address" required />
                 </FormGroup>
               </Form>
             </Col>
