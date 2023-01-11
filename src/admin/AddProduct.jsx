@@ -1,5 +1,8 @@
 import React from "react";
 
+// redux
+import { useSelector } from "react-redux";
+
 // uuid
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,15 +17,13 @@ import { toast } from "react-toastify";
 import { db, storage } from "../firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
-import { useAuth } from "../services/hooks/useAuth";
 
 // route
 import { useNavigate } from "react-router-dom";
 
 export const AddProduct = React.memo(() => {
-  // ===data from firebase===
-  const { currentUser } = useAuth();
-  //  ===data from firebase===
+  const { user } = useSelector((state) => state.user);
+
   const [title, setTitle] = React.useState("");
   const [shortDesc, setShortDesc] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -32,8 +33,6 @@ export const AddProduct = React.memo(() => {
   const [review, setReview] = React.useState("");
   const [productImg, setProductImg] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-
-  console.log(currentUser);
 
   const navigate = useNavigate();
 
@@ -67,11 +66,11 @@ export const AddProduct = React.memo(() => {
               imgUrl: downloadURL,
               reviews: [
                 {
-                  photoURL: currentUser?.photoURL,
-                  name: currentUser?.displayName,
+                  photoURL: user?.photoURL,
+                  name: user?.displayName,
                   rating: rating,
                   text: review,
-                  uid: currentUser?.uid,
+                  uid: user?.uid,
                 },
               ],
               avgRating: rating,

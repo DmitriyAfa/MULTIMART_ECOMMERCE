@@ -4,7 +4,7 @@ import React from "react";
 import "../styles/product-details.scss";
 
 // react-strap
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, NavLink } from "reactstrap";
 
 // router
 import { useParams } from "react-router-dom";
@@ -19,35 +19,34 @@ import { CommonSection } from "../components/UI/CommonSection";
 import { ProductsList } from "../components/UI/ProductsList";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItem } from "../services/redux/slices/cartSlice";
 
 // firebase
 import { db } from "../firebase.config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-// hooks
-import { useGetData } from "../services/hooks/useGetData";
-import { useAuth } from "../services/hooks/useAuth";
-
 export const ProductDetails = React.memo(() => {
-  const params = useParams();
-  // ===data from firebase===
-  const { currentUser } = useAuth();
-  const { data: products } = useGetData("products");
-  const docRef = doc(db, "products", params.id);
-  //  ===data from firebase===
   const dispatch = useDispatch();
+  const params = useParams();
+
   const [product, setProduct] = React.useState({});
   const [tab, setTab] = React.useState("desc");
-  const reviewMSG = React.useRef("");
   const [rating, setRating] = React.useState(null);
+
+  const reviewMSG = React.useRef("");
+
+  const { user } = useSelector((state) => state.user);
+  const { products } = useSelector((state) => state.products);
+
+  // ===data from firebase===
+  const currentProductRef = doc(db, "products", params.id);
+  //  ===data from firebase===
 
   const {
     imgUrl,
     id,
     productName,
-    avgRating,
     reviews,
     description,
     shortDesc,
@@ -55,9 +54,16 @@ export const ProductDetails = React.memo(() => {
     category,
   } = product;
 
+  const getRating = () => {
+    const ratingSum = reviews?.reduce((agg, item) => {
+      return (agg += item.rating);
+    }, 0);
+    return ratingSum / reviews?.length;
+  };
+
   React.useEffect(() => {
     const getProduct = async () => {
-      const docSnap = await getDoc(docRef);
+      const docSnap = await getDoc(currentProductRef);
       if (docSnap.exists()) {
         setProduct(docSnap.data());
       } else {
@@ -66,8 +72,6 @@ export const ProductDetails = React.memo(() => {
     };
     getProduct();
   }, []);
-
-  const relatedProducts = products.filter((item) => item.category === category);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -80,14 +84,14 @@ export const ProductDetails = React.memo(() => {
       toast.error("Please, choose rating");
     } else {
       reviewData = {
-        photoURL: currentUser?.photoURL,
-        name: currentUser?.displayName,
+        photoURL: user?.photoURL,
+        name: user?.displayName,
         rating: rating,
         text: reviewUserMSG,
-        uid: currentUser?.uid,
+        uid: user?.uid,
       };
 
-      await updateDoc(docRef, {
+      await updateDoc(currentProductRef, {
         reviews: [...reviews, reviewData],
       })
         .then(() => {
@@ -114,6 +118,9 @@ export const ProductDetails = React.memo(() => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [product]);
+
+  const avgRating = getRating();
+  const relatedProducts = products.filter((item) => item.category === category);
 
   return (
     <Helmet title={productName}>
@@ -191,7 +198,7 @@ export const ProductDetails = React.memo(() => {
                         return (
                           <li
                             className={`mb-4 ${
-                              uid === currentUser?.uid ? "_own-rating" : ""
+                              uid === user?.uid ? "_own-rating" : ""
                             }`}
                             key={rating + index}
                           >
@@ -210,30 +217,35 @@ export const ProductDetails = React.memo(() => {
                           <motion.span
                             whileTap={{ scale: 1.2 }}
                             onClick={() => setRating(1)}
+                            className={rating === 1 ? "_star-coral" : ""}
                           >
                             1 <i className="ri-star-s-fill"></i>
                           </motion.span>
                           <motion.span
                             whileTap={{ scale: 1.2 }}
                             onClick={() => setRating(2)}
+                            className={rating === 2 ? "_star-coral" : ""}
                           >
                             2 <i className="ri-star-s-fill"></i>
                           </motion.span>
                           <motion.span
                             whileTap={{ scale: 1.2 }}
                             onClick={() => setRating(3)}
+                            className={rating === 3 ? "_star-coral" : ""}
                           >
                             3 <i className="ri-star-s-fill"></i>
                           </motion.span>
                           <motion.span
                             whileTap={{ scale: 1.2 }}
                             onClick={() => setRating(4)}
+                            className={rating === 4 ? "_star-coral" : ""}
                           >
                             4 <i className="ri-star-s-fill"></i>
                           </motion.span>
                           <motion.span
                             whileTap={{ scale: 1.2 }}
                             onClick={() => setRating(5)}
+                            className={rating === 5 ? "_star-coral" : ""}
                           >
                             5 <i className="ri-star-s-fill"></i>
                           </motion.span>
@@ -249,13 +261,21 @@ export const ProductDetails = React.memo(() => {
                           />
                         </div>
 
-                        <motion.button
-                          whileTap={{ scale: 1.2 }}
-                          type="submit"
-                          className="_buy-btn"
-                        >
-                          Submit
-                        </motion.button>
+                        {user ? (
+                          <motion.button
+                            whileTap={{ scale: 1.2 }}
+                            type="submit"
+                            className="_buy-btn"
+                          >
+                            Submit
+                          </motion.button>
+                        ) : (
+                          <div className="go-auth">
+                            You need
+                            <NavLink to="/login">login</NavLink> or
+                            <NavLink to="/signup">signup</NavLink>
+                          </div>
+                        )}
                       </form>
                     </div>
                   </div>

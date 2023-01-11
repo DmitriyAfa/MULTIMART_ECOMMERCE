@@ -1,17 +1,17 @@
 import React from "react";
 
+// redux
+import { useSelector } from "react-redux";
+
 // styles
 import "../styles/dashboard.scss";
 
 // reactstrap
 import { Container, Row, Col } from "reactstrap";
 
-// hooks
-import { useGetData } from "../services/hooks/useGetData";
-
 export const Dashboard = React.memo(() => {
-  const { data: products } = useGetData("products");
-  const { data: users } = useGetData("users");
+  const { users } = useSelector((state) => state.user);
+  const { products } = useSelector((state) => state.products);
 
   return (
     <section>
