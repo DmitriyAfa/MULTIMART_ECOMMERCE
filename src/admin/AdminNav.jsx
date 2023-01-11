@@ -1,5 +1,8 @@
 import React from "react";
 
+// redux
+import { useSelector } from "react-redux";
+
 // styles
 import "../styles/admin-nav.scss";
 
@@ -8,9 +11,6 @@ import { Container, Row } from "reactstrap";
 
 // router
 import { NavLink } from "react-router-dom";
-
-// hooks
-import { useAuth } from "../services/hooks/useAuth";
 
 const admin__nav = [
   {
@@ -36,7 +36,7 @@ const admin__nav = [
 ];
 
 export const AdminNav = React.memo(() => {
-  const { currentUser } = useAuth();
+  const { user } = useSelector((state) => state.user);
 
   return (
     <>
@@ -63,7 +63,7 @@ export const AdminNav = React.memo(() => {
                 <span>
                   <i className="ri-settings-5-line"></i>
                 </span>
-                <img src={currentUser && currentUser.photoURL} alt="" />
+                <img src={user && user.photoURL} alt="" />
               </div>
             </div>
           </Container>

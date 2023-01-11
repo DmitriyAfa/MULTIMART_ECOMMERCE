@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 // styles
 import "../styles/home.scss";
 
+// redux
+import { useSelector } from "react-redux";
+
 // components
 import { Helmet } from "../components/Helmet/Helmet";
 import { Service } from "../components/Service/Service";
@@ -22,13 +25,9 @@ import { Link } from "react-router-dom";
 // animation
 import { motion } from "framer-motion";
 
-// hooks
-import { useGetData } from "../services/hooks/useGetData";
-
 export const Home = React.memo(() => {
-  // ===data from firebase===
-  const { data: products, loading } = useGetData("products");
-  //  ===data from firebase===
+  const { products } = useSelector((state) => state.products);
+
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [bestSalesProducts, setBestSalesProducts] = useState([]);
   const [mobileProducts, setMobileProducts] = useState([]);
@@ -98,7 +97,7 @@ export const Home = React.memo(() => {
               <h2 className="section__title">Trending Products</h2>
             </Col>
 
-            {loading ? (
+            {products.length === 0 ? (
               <h5 className="fw-bold">Loading......</h5>
             ) : (
               <ProductsList data={trendingProducts} />
@@ -113,7 +112,7 @@ export const Home = React.memo(() => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Best Sales</h2>
             </Col>
-            {loading ? (
+            {products.length === 0 ? (
               <h5 className="fw-bold">Loading......</h5>
             ) : (
               <ProductsList data={bestSalesProducts} />
@@ -153,12 +152,12 @@ export const Home = React.memo(() => {
               <h2 className="section__title">New Arrivals</h2>
             </Col>
 
-            {loading ? (
+            {products.length === 0 ? (
               <h5 className="fw-bold">Loading......</h5>
             ) : (
               <ProductsList data={mobileProducts} />
             )}
-            {loading ? (
+            {products.length === 0 ? (
               <h5 className="fw-bold">Loading......</h5>
             ) : (
               <ProductsList data={wirelessProducts} />
@@ -174,7 +173,7 @@ export const Home = React.memo(() => {
               <h2 className="section__title">Popular in Category</h2>
             </Col>
 
-            {loading ? (
+            {products.length === 0 ? (
               <h5 className="fw-bold">Loading......</h5>
             ) : (
               <ProductsList data={popularProducts} />

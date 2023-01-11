@@ -17,11 +17,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 // firebase
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase.config";
+import { auth, storage, db } from "../firebase.config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebase.config";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase.config";
 
 export const Signup = React.memo(() => {
   const [userName, setUserName] = React.useState("");

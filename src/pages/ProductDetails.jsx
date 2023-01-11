@@ -19,28 +19,28 @@ import { CommonSection } from "../components/UI/CommonSection";
 import { ProductsList } from "../components/UI/ProductsList";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCartItem } from "../services/redux/slices/cartSlice";
 
 // firebase
 import { db } from "../firebase.config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
-// hooks
-import { useGetData } from "../services/hooks/useGetData";
-import { useAuth } from "../services/hooks/useAuth";
-
 export const ProductDetails = React.memo(() => {
+  const dispatch = useDispatch();
   const params = useParams();
+
+  const { user } = useSelector((state) => state.user);
+  const { products } = useSelector((state) => state.products);
+
   // ===data from firebase===
-  const { currentUser } = useAuth();
-  const { data: products } = useGetData("products");
   const docRef = doc(db, "products", params.id);
   //  ===data from firebase===
-  const dispatch = useDispatch();
+
+  const reviewMSG = React.useRef("");
+
   const [product, setProduct] = React.useState({});
   const [tab, setTab] = React.useState("desc");
-  const reviewMSG = React.useRef("");
   const [rating, setRating] = React.useState(null);
 
   const {
@@ -80,11 +80,11 @@ export const ProductDetails = React.memo(() => {
       toast.error("Please, choose rating");
     } else {
       reviewData = {
-        photoURL: currentUser?.photoURL,
-        name: currentUser?.displayName,
+        photoURL: user?.photoURL,
+        name: user?.displayName,
         rating: rating,
         text: reviewUserMSG,
-        uid: currentUser?.uid,
+        uid: user?.uid,
       };
 
       await updateDoc(docRef, {
@@ -191,7 +191,7 @@ export const ProductDetails = React.memo(() => {
                         return (
                           <li
                             className={`mb-4 ${
-                              uid === currentUser?.uid ? "_own-rating" : ""
+                              uid === user?.uid ? "_own-rating" : ""
                             }`}
                             key={rating + index}
                           >

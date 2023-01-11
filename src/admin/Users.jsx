@@ -1,10 +1,10 @@
 import React from "react";
 
+// redux
+import { useSelector } from "react-redux";
+
 // reactstrap
 import { Container, Row, Col } from "reactstrap";
-
-// hooks
-import { useGetData } from "../services/hooks/useGetData";
 
 // firebase
 import { doc, deleteDoc } from "firebase/firestore";
@@ -14,7 +14,7 @@ import { db } from "../firebase.config";
 import { toast } from "react-toastify";
 
 export const Users = React.memo(() => {
-  const { data: usersData, loading } = useGetData("users");
+  const { users } = useSelector((state) => state.user);
 
   const deleteUser = async (id) => {
     await deleteDoc(doc(db, "users", id));
@@ -37,10 +37,10 @@ export const Users = React.memo(() => {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
+              {users.length === 0 ? (
                 <h4 className="pt-5 fw-bold">Loading.......</h4>
               ) : (
-                usersData?.map(({ photoURL, displayName, email, uid }) => {
+                users?.map(({ photoURL, displayName, email, uid }) => {
                   return (
                     <tr key={uid}>
                       <td>

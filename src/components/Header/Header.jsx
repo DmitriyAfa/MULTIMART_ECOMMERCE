@@ -12,10 +12,6 @@ import { useSelector } from "react-redux";
 // reactstrap
 import { Container, Row } from "reactstrap";
 
-// hooks
-import { useAuth } from "../../services/hooks/useAuth";
-import { useGetData } from "../../services/hooks/useGetData";
-
 // firebase
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
@@ -34,21 +30,20 @@ const nav__links = [
   { path: "home", display: "Home" },
   { path: "shop", display: "Shop" },
   { path: "cart", display: "Cart" },
-  // { path: "dashboard", display: "Dashboard" },
 ];
 
 export const Header = React.memo(() => {
-  // ===data from firebase===
-  const { data } = useGetData("users");
-  const { currentUser } = useAuth();
-  //  ===data from firebase===
-  const user = data?.filter(({ uid }) => uid === currentUser?.uid);
+  const navigate = useNavigate();
   const headerRef = useRef(null);
   const menuRef = useRef(null);
   const profileActionRef = useRef(null);
-  const navigate = useNavigate();
 
+  const currentUser = useSelector((state) => state.user.user);
+  const { users } = useSelector((state) => state.user);
   const { totalQuantity } = useSelector((state) => state.cart);
+
+  // we get the user data from firebase
+  const user = users?.filter(({ uid }) => uid === currentUser?.uid);
 
   const setStickyHeader = () => {
     if (
@@ -72,11 +67,6 @@ export const Header = React.memo(() => {
       });
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", setStickyHeader);
-
-    return () => window.removeEventListener("scroll", setStickyHeader);
-  }, []);
   const menuToggle = () => menuRef.current.classList.toggle("nav_active");
 
   const navigateToCart = () => {
@@ -85,6 +75,12 @@ export const Header = React.memo(() => {
 
   const toggleProfileActions = () =>
     profileActionRef.current.classList.toggle("profile__actions_show");
+
+  useEffect(() => {
+    window.addEventListener("scroll", setStickyHeader);
+
+    return () => window.removeEventListener("scroll", setStickyHeader);
+  }, []);
 
   return (
     <header className="header" ref={headerRef}>
@@ -134,7 +130,7 @@ export const Header = React.memo(() => {
               <div className="header__profile">
                 <motion.img
                   whileTap={{ scale: 1.2 }}
-                  src={currentUser ? currentUser.photoURL : userIcon}
+                  src={currentUser?.photoURL ? currentUser?.photoURL : userIcon}
                   alt=""
                   onClick={toggleProfileActions}
                 />
@@ -144,7 +140,7 @@ export const Header = React.memo(() => {
                   ref={profileActionRef}
                   onClick={toggleProfileActions}
                 >
-                  {currentUser ? (
+                  {currentUser?.displayName ? (
                     <div className="d-flex align-items-center justify-content-center flex-column">
                       <span className="_hover_primary" onClick={logout}>
                         Logout
